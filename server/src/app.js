@@ -1,31 +1,23 @@
 import express from "express";
 import cors from "cors";
-import cookieParser from "cookie-parser";
-
+import authRoutes from "./routers/auth.router.js";
+import userRoutes from "./routers/user.router.js";
+import appointmentRoutes from "./routers/appointment.router.js";
+import doctorAppointmentsRouter from "./routers/doctorAppointments.router.js";
 
 const app = express();
 
-
 app.use(cors({
-    origin: process.env.CORS_ORIGIN,
-    credentials: true
-}))
+  origin: "http://localhost:5173",   // tumhara frontend origin
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
+}));
 
-app.use(express.json({
-    limit:"16kb"
-}))
+app.use(express.json());
 
-app.use(express.urlencoded({
-    extended:true, 
-    limit:"16kb"
-}))
+app.use("/auth", authRoutes);
+app.use("/users", userRoutes);
+app.use("/appointments", appointmentRoutes);
+app.use("/doctor-appointments", doctorAppointmentsRouter);
 
-app.use(express.static("public"))
-
-app.use(cookieParser())
-
-import userRouter from "./routers/user.router.js"
-//routes declaration
-app.use("/app/v1/users",userRouter)
-
-export {app}
+export { app };

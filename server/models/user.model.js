@@ -1,59 +1,35 @@
-import mongoose,{Schema} from "mongoose";
-import jwt from "jsonwebtoken";
-import bcrypt from "bcrypt;"
+import { DataTypes } from "sequelize";
+import { sequelize } from "../db/index.js";
 
-const userSchema = new Schema({
-    username:{
-        type: String,
-        required: true,
-        unique: true,
-        lowercase: true,
-        trim: true,
-        index: true
-    },
-    email:{
-        type: String,
-        required: true,
-        index: true,
-        trim: true
-    },
-    profileImage:{
-        type: String
-    },
-    mbtiType:{
-        type: String
-    },
-    bio:{
-        type: String
-    },
-    password:{
-        type: String,
-        required: [true, 'Password is required']
-    },
-    refreshToken:{
-        type: String
-    }
-},{
-    timestamps: true
-})
+const user = sequelize.define("User", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    primaryKey: true,
+  },
+  name: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  email: {
+    type: DataTypes.STRING,
+    unique: true,
+    allowNull: false,
+  },
+  password: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  role: {
+    type: DataTypes.ENUM("patient", "doctor", "admin"),
+    defaultValue: "patient",
+  },
+  specialization: {
+    type: DataTypes.STRING, // only for doctors
+    allowNull: true,
+  },
+}, {
+  timestamps: true,
+});
 
-export const User = mongoose.model("User",userSchema)
-
-
-userSchema.pre("save", async function(){
-    this.password = bcrypt.hash(this.password,10)
-    next()
-})
-if (!this.isModified("password"))   return next();
-
-userSchema.methods.isPasswordCorrect = async function(password){
-    return await bcrypt.compare(password,this.password)
-}
-
-
-userSchema.methods.generateAccessToken = function(){
-
-}
-userSchema.methods.generateRefreshToken = function(){
-    
-}
+export default user;

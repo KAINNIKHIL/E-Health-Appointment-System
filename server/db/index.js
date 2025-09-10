@@ -1,13 +1,30 @@
-import mongoose from "mongoose";
-import {DB_NAME} from "../src/constant.js";
-const connectDB = async()=> {
-    try{
-        const connectionInstance =  await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`);
-        console.log(`mongodb connected \n DB_HOST${connectionInstance.connection.host}`)
-    }catch(error){
-        console.log("MongoDB connection failed!");
-        process.exit(1)
-    }
-}
+import { Sequelize } from "sequelize";
 
-export default connectDB
+const sequelize = new Sequelize(
+  process.env.MYSQL_DB,
+  process.env.MYSQL_USER,
+  process.env.MYSQL_PASS,
+  {
+    host: process.env.MYSQL_HOST || "localhost",
+    dialect: "mysql",
+    logging: false,
+  }
+);
+
+const connectDB = async () => {
+  try {
+    await sequelize.authenticate();
+    console.log(`MySQL connected: ${process.env.MYSQL_DB}`);
+
+    // Import models here so that relations load
+    await sequelize.sync({ alter: true });
+    console.log("All models synced!");
+    
+    return sequelize;
+  } catch (error) {
+    console.error("MySQL connection failed:", error.message);
+    throw error;
+  }
+};
+
+export { connectDB, sequelize };
