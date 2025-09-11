@@ -5,11 +5,11 @@ import HomePage from "./components/HomePage";
 import BookAppointment from "./pages/BookAppointment.jsx";
 import MyAppointments from "./pages/MyAppointments.jsx";
 import DoctorAppointments from "./pages/DoctorAppointments.jsx";
+import { Toaster } from "react-hot-toast";
 
 function App() {
-  const role = localStorage.getItem("role");
-   console.log("Current role:", role);
   return (
+  <>
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<HomePage />} />
@@ -20,6 +20,8 @@ function App() {
         <Route path="/doctor-appointments" element={<DoctorAppointments />} />
       </Routes>
     </BrowserRouter>
+    <Toaster position="top-right" reverseOrder={false} />
+  </>
   );
 }
 

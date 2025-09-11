@@ -55,10 +55,44 @@ router.get("/", authMiddleware(), async (req, res) => {
       where: { patient_id: req.user.id },
       include: [{ model: User, as: "doctor", attributes: ["id", "name", "specialization", "email"] }],
     });
+     const today = new Date();
+
+    // Auto-update logic
+    for (let appt of appointments) {
+      const apptDate = new Date(appt.date);
+
+      if (apptDate < today && appt.status === "booked") {
+        appt.status = "completed";
+        await appt.save();
+      }
+    }
     res.json(appointments);
   } catch (error) {
      console.error("Fetch appointments error:", error);
     res.status(500).json({ message: "Error fetching appointments", error: error.message });
+  }
+});
+
+// Cancel appointment
+router.patch("/:id/cancel", authMiddleware(), async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Find appointment
+    const appointment = await Appointment.findByPk(id);
+
+    if (!appointment) {
+      return res.status(404).json({ message: "Appointment not found" });
+    }
+
+    // Update status
+    appointment.status = "cancelled";
+    await appointment.save();
+
+    res.json({ message: "Appointment cancelled successfully", appointment });
+  } catch (error) {
+    console.error("Cancel Error:", error);
+    res.status(500).json({ message: "Server error" });
   }
 });
 

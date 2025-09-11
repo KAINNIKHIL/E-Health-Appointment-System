@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export default function Register() {
    const navigate = useNavigate();
@@ -20,15 +21,15 @@ export default function Register() {
     e.preventDefault();
     try {
       const res = await axios.post("http://localhost:8000/auth/register", form);
-      alert(res.data.message);
+      toast.success(res.data.message);
        navigate("/");
     } catch (err) {
-      alert(err.response?.data?.message || "Error registering");
+      toast.error(err.response?.data?.message || "Error registering");
     }
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
+    <div className="flex items-center justify-center min-h-screen min-w-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <form
         onSubmit={handleSubmit}
         className="bg-white shadow-2xl p-10 rounded-2xl w-full max-w-md space-y-6"

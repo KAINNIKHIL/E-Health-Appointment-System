@@ -20,6 +20,10 @@ const appointment = sequelize.define("Appointment", {
     type: DataTypes.ENUM("booked", "cancelled", "completed"),
     defaultValue: "booked",
   },
+   reason: {   // <-- yaha add karo
+    type: DataTypes.STRING,
+    allowNull: true,
+  }
 }, {
   timestamps: true, // automatically adds createdAt & updatedAt
   // optional: rename columns
