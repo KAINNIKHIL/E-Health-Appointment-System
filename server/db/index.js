@@ -16,7 +16,6 @@ const connectDB = async () => {
     await sequelize.authenticate();
     console.log(`MySQL connected: ${process.env.MYSQL_DB}`);
 
-    // Import models here so that relations load
     await sequelize.sync({ alter: true });
     console.log("All models synced!");
     

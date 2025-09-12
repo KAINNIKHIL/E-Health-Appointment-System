@@ -68,7 +68,7 @@ const DoctorAppointments = () => {
           📅 My Appointments
         </h2>
 
-        {/* Controls */}
+       
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
           <input
             type="text"

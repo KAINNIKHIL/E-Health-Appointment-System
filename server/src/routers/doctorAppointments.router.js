@@ -5,7 +5,7 @@ import authMiddleware from "../../middlewares/auth.js";
 
 const router = express.Router();
 
-// ✅ Get all appointments for logged-in doctor
+// Get all appointments for logged-in doctor
 router.get("/", authMiddleware(), async (req, res) => {
   try {
     const doctor = req.user;
@@ -29,12 +29,12 @@ router.get("/", authMiddleware(), async (req, res) => {
   }
 });
 
-// ✅ Update appointment status (complete / cancel)
+//  Update appointment status (complete / cancel)
 router.put("/:id/status", authMiddleware(), async (req, res) => {
   try {
     const doctor = req.user;
     const { id } = req.params;
-    const { status } = req.body; // expected: "completed" / "cancelled"
+    const { status } = req.body; 
 
     if (doctor.role !== "doctor") {
       return res.status(403).json({ message: "Only doctors can update status" });

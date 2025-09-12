@@ -48,7 +48,7 @@ export default function MyAppointments() {
 };
 
 
-  // Helper: format date
+  
   const formatDate = (dateStr) => {
     const d = new Date(dateStr);
     return d.toLocaleDateString("en-IN", {
@@ -59,7 +59,7 @@ export default function MyAppointments() {
     });
   };
 
-  // Helper: format time
+  
   const formatTime = (timeStr) => {
     const [hours, minutes] = timeStr.split(":");
     const date = new Date();
@@ -67,11 +67,11 @@ export default function MyAppointments() {
     return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
   };
 
-  // Helper: capitalize status
+
   const capitalize = (str) =>
     str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 
-  // Grouping
+  
   const today = new Date();
   const upcoming = appointments.filter(
     (a) => new Date(a.date) >= today
@@ -80,10 +80,9 @@ export default function MyAppointments() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col">
-      {/* Navbar */}
+      
       <Navbar />
 
-      {/* Content */}
       <div className="flex-1 p-6">
         <h2 className="text-3xl font-extrabold text-center text-blue-700 mb-8">
           My Appointments

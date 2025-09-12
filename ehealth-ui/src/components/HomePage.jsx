@@ -6,10 +6,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col items-center ">
-      {/* Navbar */}
+      
      <Navbar />
 
-      {/* Hero Section */}
       <div className="flex flex-col items-center  justify-center text-center py-24 px-6 md:px-12 flex-1 w-full max-w-screen-lg">
         <h2 className="text-4xl md:text-5xl font-extrabold text-blue-800 mb-6">
           Welcome to E-Health

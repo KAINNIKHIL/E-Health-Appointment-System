@@ -1,6 +1,6 @@
 import express from "express";
 import Appointment from "../../models/appointment.model.js";
-import authMiddleware from "../../middlewares/auth.js"; // checks JWT and adds req.user
+import authMiddleware from "../../middlewares/auth.js"; 
 import User from "../../models/user.model.js";
 import { sendEmail } from "../../utils/email.js";
 
@@ -20,7 +20,7 @@ router.post("/", authMiddleware(), async (req, res) => {
     });
       const doctor = await User.findByPk(doctor_id);
       const patient = await User.findByPk(req.user.id);
-      // Email doctor ko
+      
     if (doctor?.email) {
       await sendEmail(
         doctor.email,
@@ -29,7 +29,7 @@ router.post("/", authMiddleware(), async (req, res) => {
       );
     }
 
-     // Email patient ko
+     
     if (patient?.email) {
       await sendEmail(
         patient.email,
@@ -55,9 +55,8 @@ router.get("/", authMiddleware(), async (req, res) => {
       where: { patient_id: req.user.id },
       include: [{ model: User, as: "doctor", attributes: ["id", "name", "specialization", "email"] }],
     });
-     const today = new Date();
 
-    // Auto-update logic
+     const today = new Date();
     for (let appt of appointments) {
       const apptDate = new Date(appt.date);
 

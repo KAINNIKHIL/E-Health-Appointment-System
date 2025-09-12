@@ -43,10 +43,9 @@ export default function BookAppointment() {
 
   return (
     <div className="min-h-screen w-full bg-gradient-to-r from-blue-50 to-blue-100 flex flex-col">
-      {/* Navbar always at top */}
+
       <Navbar />
 
-      {/* Centered form */}
       <div className="flex flex-1 items-center justify-center px-4">
         <form
           onSubmit={handleSubmit}
