@@ -14,7 +14,7 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:8000/auth/login", form);
+      const res = await axios.post("https://e-health-appointment-system.onrender.com/auth/login", form);
       toast.success(res.data.message);
       localStorage.setItem("token", res.data.token);
       localStorage.setItem("role", res.data.role);
