@@ -14,7 +14,7 @@ export default function BookAppointment() {
 
   useEffect(() => {
     // Fetch all doctors
-    axios.get("http://e-health-appointment-system.onrender.com/users/doctors").then((res) => {
+    axios.get("https://e-health-appointment-system.onrender.com/users/doctors").then((res) => {
       setDoctors(res.data);
     });
   }, []);
@@ -31,7 +31,7 @@ export default function BookAppointment() {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      const res = await axios.post("http://e-health-appointment-system.onrender.com/appointments", form, {
+      const res = await axios.post("https://e-health-appointment-system.onrender.com/appointments", form, {
         headers: { Authorization: `Bearer ${token}` },
       });
       toast.success(res.data.message);

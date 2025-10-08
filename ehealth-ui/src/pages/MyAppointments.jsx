@@ -10,7 +10,7 @@ export default function MyAppointments() {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8000/appointments", {
+        const res = await axios.get("https://e-health-appointment-system.onrender.com/appointments", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAppointments(res.data);
@@ -28,7 +28,7 @@ export default function MyAppointments() {
   try {
     const token = localStorage.getItem("token");
     await axios.patch(
-      `http://e-health-appointment-system.onrender.com/appointments/${id}/cancel`,
+      `https://e-health-appointment-system.onrender.com/appointments/${id}/cancel`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` },
