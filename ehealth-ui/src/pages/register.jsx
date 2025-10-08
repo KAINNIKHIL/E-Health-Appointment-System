@@ -20,7 +20,7 @@ export default function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("https://e-health-appointment-system.onrender.com/auth/login", form);
+      const res = await axios.post("https://e-health-appointment-system.onrender.com/auth/register", form);
       toast.success(res.data.message);
        navigate("/");
     } catch (err) {
