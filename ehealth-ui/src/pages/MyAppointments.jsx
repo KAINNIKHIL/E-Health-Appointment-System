@@ -28,7 +28,7 @@ export default function MyAppointments() {
   try {
     const token = localStorage.getItem("token");
     await axios.patch(
-      `http://localhost:8000/appointments/${id}/cancel`,
+      `http://e-health-appointment-system.onrender.com/appointments/${id}/cancel`,
       {},
       {
         headers: { Authorization: `Bearer ${token}` },

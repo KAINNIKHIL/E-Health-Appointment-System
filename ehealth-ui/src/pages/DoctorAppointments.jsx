@@ -18,7 +18,7 @@ const DoctorAppointments = () => {
     const fetchAppointments = async () => {
       try {
         const token = localStorage.getItem("token");
-        const res = await axios.get("http://localhost:8000/doctor-appointments", {
+        const res = await axios.get("http://e-health-appointment-system.onrender.com/doctor-appointments", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setAppointments(res.data);
